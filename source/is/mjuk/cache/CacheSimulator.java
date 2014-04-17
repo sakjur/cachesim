@@ -5,7 +5,8 @@ class CacheSimulator
 
 	public static void main(String[] args) 
 	{
-		System.out.println("Hello, cache!");
+		Controller c = new Controller();
+        View view = new View(c);
 	}
 
 }
