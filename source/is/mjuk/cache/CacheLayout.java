@@ -3,7 +3,11 @@ package is.mjuk.cache;
 import java.lang.Math;
 import java.lang.IllegalArgumentException;
 
-class CacheLayout
+/**
+* @author   Emil Tullstedt <emiltu@kth.se>
+* @version  0.1
+*/
+public class CacheLayout
 {
     private static final int MEMORY_ADDRESS_SIZE = 32; 
 
@@ -46,6 +50,13 @@ class CacheLayout
         return rv;
     }
 
+    /**
+    * Calculate and store address layout
+    *
+    * Uses the cache layout properties to calculate a proper address layout.
+    *
+    * @throws java.lang.IllegalArgumentException
+    */
     private void calculateAddressLayout()
     {
         int offset = evenLog2(blockSize);
@@ -61,8 +72,8 @@ class CacheLayout
     }
 
     /**
-    * @args int input Amount of bits to set to one
-    * @args int offset Amount of zeroes right off the ones
+    * @param input Amount of bits to set to one
+    * @param offset Amount of zeroes right off the ones
     * @return A digit with a row of bits set to one
     */
     private long setOnes(int input, int offset)
@@ -70,6 +81,9 @@ class CacheLayout
         return ((long) Math.pow(2, input)-1) << offset;
     }
 
+    /**
+    * @see {@link #setOnes(int input, int offset)}
+    */
     private long setOnes(int input)
     {
         return setOnes(input, 0);
@@ -78,7 +92,7 @@ class CacheLayout
     /**
     * 
     * @return The value of log2(n)
-    * @throws IllegalArgumentException
+    * @throws java.lang.IllegalArgumentException
     */
     private int evenLog2(double n)
     {
