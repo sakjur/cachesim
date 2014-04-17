@@ -1,0 +1,28 @@
+
+require 'rakejava'
+require 'rake/clean'
+
+CLEAN.include 'classes'
+CLEAN.include 'cachesim.jar'
+
+task :default => :compile
+
+task :jar => "cachesim.jar"
+
+jar "cachesim.jar" => :compile do |t|
+	t.files << JarFiles["classes", "**/*.class"]
+	t.main_class = "is.mjuk.cache.CacheSimulator"
+	t.manifest = {:version => '0.0.1'}
+end
+
+javac :compile => "classes" do |t|
+	t.src << Sources["source/", "**/*.java"]
+	t.dest = 'classes'
+end
+
+task :run => :compile do |t|
+	sh "cd classes/ && java is.mjuk.cache.CacheSimulator"
+end
+
+directory "classes"
+
