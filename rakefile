@@ -4,6 +4,7 @@ require 'rake/clean'
 
 CLEAN.include 'classes'
 CLEAN.include 'cachesim.jar'
+CLEAN.include 'docs'
 
 task :default => :compile
 
@@ -20,9 +21,18 @@ javac :compile => "classes" do |t|
 	t.dest = 'classes'
 end
 
+javac :compiletest => :compile do |t|
+	t.src << Sources["test/", "**/*.java"]
+	t.dest = 'classes'
+end
+
 task :run => :compile do |t|
 	sh "cd classes/ && java is.mjuk.cache.CacheSimulator"
 end
 
-directory "classes"
+task :doc => "docs" do |t|
+	sh "javadoc -sourcepath source/ -d docs/ is.mjuk.cache"
+end
 
+directory "classes"
+directory "docs"

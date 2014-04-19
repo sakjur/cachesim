@@ -1,9 +1,10 @@
 package is.mjuk.cache;
 
-class Controller
+public class Controller
 {
 	private User user;
     private CacheLayout cacheLayout;
+    private DataCache dataCache;
 
 	public Controller()
 	{
@@ -15,6 +16,9 @@ class Controller
 		return user.getDateTime();
 	}
 
+    /**
+    * @see is.mjuk.cache.User#setNickname(String newNickname)
+    */
     public void setNickname(String newNick)
     {
         user.setNickname(newNick);
@@ -28,6 +32,12 @@ class Controller
     public void setCacheLayout(int blockSize, int blockCount, int associativity)
     {
         cacheLayout = new CacheLayout(blockSize, blockCount, associativity);
+        dataCache = cacheLayout.generateDataCache();
+    }
+
+    public String displayCache()
+    {
+        return dataCache.displayCache();
     }
 
     public AddressDTO parseAddress()

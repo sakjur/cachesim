@@ -4,6 +4,10 @@ import java.lang.Math;
 import java.lang.IllegalArgumentException;
 
 /**
+* Template for a cache
+* <p>
+* Calculating the necessary parameters to generate a datacache and 
+* parsing addresses for accessing the cache.
 * @author   Emil Tullstedt <emiltu@kth.se>
 * @version  0.1
 */
@@ -19,6 +23,16 @@ public class CacheLayout
     private int indexSize;
     private int offsetSize;
 
+    /**
+    * Constructor for CacheLayout
+    * <p>
+    * Setting the internal values to specified data. 
+    *
+    * @param blockSize Amount of <i>bytes</i> in a single block
+    * @param blockCount Amount of blocks in the cache
+    * @param associativity Associativity of the cache
+    * @throws java.lang.IllegalArgumentException
+    */
     public CacheLayout(int blockSize, int blockCount, int associativity)
     {
         this.blockSize = blockSize;
@@ -27,6 +41,21 @@ public class CacheLayout
         this.calculateAddressLayout();
     }
 
+    public DataCache generateDataCache()
+    {
+        LayoutDTO layout = this.generateLayoutDTO();
+        return new DataCache(layout);
+    }
+
+    /**
+    * Generating a object containing the properties of the cache and
+    * it's address.
+    *
+    *
+    * @return A LayoutDTO containing the block size, block count,
+    * associativity, tag size, index size and offset size of the
+    * cache.
+    */
     public LayoutDTO generateLayoutDTO()
     {
         LayoutDTO dto = new LayoutDTO();
@@ -82,7 +111,7 @@ public class CacheLayout
     }
 
     /**
-    * @see {@link #setOnes(int input, int offset)}
+    * @see #setOnes(int input, int offset)
     */
     private long setOnes(int input)
     {

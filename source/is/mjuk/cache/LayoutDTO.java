@@ -1,6 +1,9 @@
 package is.mjuk.cache;
 
-class LayoutDTO
+/**
+* Object for transferring cache layout data.
+*/
+public class LayoutDTO
 {
     public int blockSize;
     public int blockCount;

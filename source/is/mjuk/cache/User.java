@@ -3,9 +3,11 @@ package is.mjuk.cache;
 import java.util.Date;
 
 /**
+* Class for user-specific data.
+*
 * @author Emil Tullstedt
 */
-class User
+public class User
 {
 	private Date datetime;
 	private String nickname;
@@ -23,13 +25,17 @@ class User
 		return this.datetime.toString(); 
 	}
 
+	/**
+	* Sets the user's datetime variable to whatever the date and time is when
+	* the function is called.
+	*/
 	public void updateDateTime()
 	{
 		datetime = new Date();
 	}
 
 	/**
-	* @args String newNickname - Sets new nickname for the user
+	* @param newNickname - Sets new nickname for the user
 	*/
 	public void setNickname(String newNickname)
 	{
@@ -37,6 +43,8 @@ class User
 	}
 
 	/**
+	* Gets the stored nickname
+	*
 	* @return Current value of nickname.
 	*/
 	public String getNickname()
