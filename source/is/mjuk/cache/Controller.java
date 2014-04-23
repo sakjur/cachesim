@@ -15,14 +15,21 @@ public class Controller
 		return user.getDateTime();
 	}
 
-    public void executeInstruction(String instruction, long address) {
-        AddressDTO addressdto = addressLayout.parseAddress(address);
-        
-        if(instruction.equals("load")) {
-            dataCache.loadData(addressdto);
-        } else if (instruction.equals("store")) {            
-            dataCache.storeData(addressdto);
+    public InstructionDTO executeInstruction(String type, long address) {
+        Instruction instruction;
+
+        if(type.equals("load")) {
+            instruction = new Instruction(dataCache, addressLayout, 
+                Instruction.InstructionType.LOAD, address);
+        } else if (type.equals("store")) {            
+            instruction = new Instruction(dataCache, addressLayout, 
+                Instruction.InstructionType.STORE, address);
+        } else {
+            InstructionDTO rv = null;
+            return rv;
         }
+
+        return instruction.executeInstruction();
     };
 
     /**

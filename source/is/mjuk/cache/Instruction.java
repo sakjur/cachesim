@@ -20,7 +20,17 @@ public class Instruction {
     }
 
     public InstructionDTO executeInstruction() {
-        return new InstructionDTO();
+        boolean hit = false;
+
+        if (this.type == InstructionType.LOAD) {
+            hit = this.dataCache.loadData(this.address);
+        } else if (this.type == InstructionType.STORE) {
+            hit = this.dataCache.storeData(this.address);
+        }
+
+        InstructionDTO rv = new InstructionDTO(hit, this.address, this.type);
+        
+        return rv;
     }
 
 
