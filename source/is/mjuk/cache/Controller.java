@@ -16,9 +16,12 @@ public class Controller
 	}
 
     public void executeInstruction(String instruction, long address) {
-        if(instruction.equals("load") || instruction.equals("l")) {
-            AddressDTO addressdto = addressLayout.parseAddress(address);
+        AddressDTO addressdto = addressLayout.parseAddress(address);
+        
+        if(instruction.equals("load")) {
             dataCache.loadData(addressdto);
+        } else if (instruction.equals("store")) {            
+            dataCache.storeData(addressdto);
         }
     };
 

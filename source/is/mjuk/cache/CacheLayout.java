@@ -86,7 +86,7 @@ public class CacheLayout
         }
 
         if (log2(this.blockCount) % 1.00 == 0.00) {
-            index = (int) log2(this.blockCount);    
+            index = (int) log2(this.blockCount);
         } else {
             throw new IllegalArgumentException();
         }
@@ -96,7 +96,7 @@ public class CacheLayout
             throw new IllegalArgumentException();
         }
         
-        AddressLayout rv = new AddressLayout(tag, offset, index);
+        AddressLayout rv = new AddressLayout(tag, index, offset);
         return rv;
     }
 

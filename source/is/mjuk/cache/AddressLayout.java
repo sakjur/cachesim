@@ -30,8 +30,8 @@ public class AddressLayout {
     {
         AddressDTO rv = new AddressDTO();
         rv.offset = intToUnary(this.offsetSize) & address;
-        rv.index = intToUnary(this.indexSize, offsetSize) & address;
-        rv.tag = intToUnary(this.tagSize, offsetSize 
+        rv.index = (intToUnary(this.indexSize) << offsetSize) & address;
+        rv.tag = (intToUnary(this.tagSize) <<  offsetSize 
             + indexSize) & address;
         rv.index = rv.index >>> offsetSize;
         rv.tag = rv.tag >>> offsetSize + indexSize;

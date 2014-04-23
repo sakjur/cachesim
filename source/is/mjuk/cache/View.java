@@ -66,8 +66,11 @@ public class View
                 || input.toLowerCase().equals("x")) {
                 break;
             } else if (input.matches("^l(oad)?\\s\\d+$")) {
-                long address = Integer.parseInt(input.split("\\s")[1]);
+                long address = Long.parseLong(input.split("\\s")[1]);
                 c.executeInstruction("load", address);
+            } else if (input.matches("^s(tore)?\\s\\d+$")) {
+                long address = Long.parseLong(input.split("\\s")[1]);
+                c.executeInstruction("store", address);
             }
         }
 
