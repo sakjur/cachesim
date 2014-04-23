@@ -25,6 +25,7 @@ public class View
         this.c = controller;
         this.requireNickname();
         this.getCacheInformation();
+        this.getUserInstruction();
     }
 
     private void requireNickname()
@@ -52,5 +53,19 @@ public class View
 
         System.out.println("Displaying Cache Data");
         System.out.println(c.displayCache());
+    }
+
+    private void getUserInstruction()
+    {
+        System.out.println("USER INPUTS INSTRUCTIONS");
+        System.out.println("Write `exit` to stop the application");
+
+        while (true) {
+            String input = scanner.nextLine();
+            if (input.toLowerCase().equals("exit") 
+                || input.toLowerCase().equals("x")) {
+                break;
+            }
+        }
     }
 }

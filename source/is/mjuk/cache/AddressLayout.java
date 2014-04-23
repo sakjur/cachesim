@@ -26,7 +26,7 @@ public class AddressLayout {
     * @return An {@link is.mjuk.cache.AddressDTO} containing the 
     * tag, index and offset of the input address
     */
-    public AddressDTO parseAddress(int address)
+    public AddressDTO parseAddress(long address)
     {
         AddressDTO rv = new AddressDTO();
         rv.offset = intToUnary(this.offsetSize) & address;

@@ -11,7 +11,6 @@ import java.lang.StringBuilder;
 public class Block {
     private boolean validity;
     private long tag;
-    private int updated;
 
     /**
     * Initializes an empty block
@@ -28,14 +27,20 @@ public class Block {
     *
     * @param tag Tag to be checked against block
     */
-    public boolean isValid(long tag)
-    {
-        if (this.tag == tag && this.validity == true)
-        {
+    public boolean isValid(long tag) {
+        if (this.tag == tag && this.validity == true) {
             return true;
+        } else {
+            return false;
         }
-        else
-        {
+    }
+
+    /**
+    */
+    public boolean isValid() {
+        if (this.validity == true) {
+            return true;
+        } else {
             return false;
         }
     }
@@ -48,8 +53,7 @@ public class Block {
     * @param tag Address-tag to be stored
     * @param validity New validity of the tag
     */
-    public void setData(long tag, boolean validity)
-    {
+    public void setData(long tag, boolean validity) {
         this.validity = validity;
         this.tag = tag;
     }
@@ -59,8 +63,7 @@ public class Block {
     *
     * @param validity New validity of the tag.
     */
-    public void setValidity(boolean validity)
-    {
+    public void setValidity(boolean validity) {
         this.validity = validity;
     }
 
@@ -72,8 +75,7 @@ public class Block {
     * @see is.mjuk.cache.Block#setData
     * @param tag Address-tag to be saved
     */
-    public void setTag(long tag)
-    {
+    public void setTag(long tag) {
         setData(tag, true);
     }
 
@@ -82,8 +84,7 @@ public class Block {
     *
     * @return A string containing the validity and tag of the block
     */
-    public String toString()
-    {
+    public String toString() {
         StringBuilder rv = new StringBuilder();
         if (this.validity) {
             rv.append("valid");    

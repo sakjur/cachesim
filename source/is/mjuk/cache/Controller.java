@@ -37,10 +37,6 @@ public class Controller
         return dataCache.displayCache();
     }
 
-    public AddressDTO parseAddress() {
-        return addressLayout.parseAddress(0xABAD1DEA);
-    }
-
     // TODO: Replace with generateCacheDTO()
     public LayoutDTO generateLayoutDTO() {
         try {

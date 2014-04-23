@@ -1,6 +1,7 @@
 package is.mjuk.cache;
 
 import java.lang.StringBuilder;
+import java.lang.Math;
 
 /**
 * Stores and operates on cache blocks
@@ -10,7 +11,6 @@ import java.lang.StringBuilder;
 *
 */
 public class DataCache {
-    private int mru;
     private int hits;
     private int misses;
     private int loads;
@@ -23,27 +23,24 @@ public class DataCache {
     * @param layout Contains the layout for the cache in a 
     * {@link is.mjuk.cache.LayoutDTO}
     */
-    public DataCache(LayoutDTO layout)
-    {
+    public DataCache(LayoutDTO layout) {
         this.blockset = new Block[layout.associativity][layout.blockCount];
-        for (int i = 0; i < this.blockset[0].length; i++)
-        {
-            for (int ii = 0; ii < this.blockset.length; ii++)
-            {
+        for (int i = 0; i < this.blockset[0].length; i++) {
+            for (int ii = 0; ii < this.blockset.length; ii++) {
                 blockset[ii][i] = new Block();
             }
         }
     }
 
-    public String displayCache()
-    {
+    /**
+    * 
+    */
+    public String displayCache() {
         StringBuilder cacheDisplay = new StringBuilder();
-        for (int i = 0; i < this.blockset[0].length; i++)
-        {
+        for (int i = 0; i < this.blockset[0].length; i++) {
             cacheDisplay.append("Index 0x" + Integer.toString(i, 16));
             cacheDisplay.append(": ");
-            for (int ii = 0; ii < this.blockset.length; ii++)
-            {
+            for (int ii = 0; ii < this.blockset.length; ii++) {
                 cacheDisplay.append(blockset[ii][i].toString() + " ");
             }
             cacheDisplay.append("\n");
@@ -51,23 +48,26 @@ public class DataCache {
         return cacheDisplay.toString();
     }
 
-    /*
-    public void tempGetAllWithAssociativity(int index)
-    {
-        try 
-        {
-            for (int i = 0; i < this.blockset.length; i++)
-            {
-                Block curr = blockset[i][index];
-                System.out.println(Integer.toString(i));
+    public boolean loadData(AddressDTO address){
+        int cacheSet = -1;
+
+        for (int i = 0; i < this.blockset.length; i++) {
+            if (this.blockset[i][(int) address.index].isValid(address.tag)) {
+                return true;
+            } else if (this.blockset[i][(int) address.index].isValid() == false) {
+                cacheSet = i;
             }
         }
-        catch (java.lang.ArrayIndexOutOfBoundsException e)
-        {
-            System.out.println("The index you've selected is out of bounds");
-            throw e;
-        }
-    }
-    */
 
+        if (cacheSet == -1) {
+            cacheSet = (int) Math.floor(Math.random() * this.blockset.length);
+        }
+
+        this.blockset[cacheSet][(int) address.index].setTag(address.tag);
+        return false;
+    }
+
+    public boolean storeData(AddressDTO address){
+        return loadData(address);
+    }
 }
