@@ -15,6 +15,13 @@ public class Controller
 		return user.getDateTime();
 	}
 
+    public void executeInstruction(String instruction, long address) {
+        if(instruction.equals("load") || instruction.equals("l")) {
+            AddressDTO addressdto = addressLayout.parseAddress(address);
+            dataCache.loadData(addressdto);
+        }
+    };
+
     /**
     * @see is.mjuk.cache.User#setNickname(String newNickname)
     */
@@ -45,5 +52,5 @@ public class Controller
             System.err.println("Must generate cache layout before layout DTO");
             throw e;
         }
-    }    
+    }
 }

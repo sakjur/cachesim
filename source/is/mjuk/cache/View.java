@@ -65,7 +65,12 @@ public class View
             if (input.toLowerCase().equals("exit") 
                 || input.toLowerCase().equals("x")) {
                 break;
+            } else if (input.matches("^l(oad)?\\s\\d+$")) {
+                long address = Integer.parseInt(input.split("\\s")[1]);
+                c.executeInstruction("load", address);
             }
         }
+
+        System.out.println(c.displayCache());
     }
 }
