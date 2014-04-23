@@ -35,7 +35,7 @@ public class User
 	}
 
 	/**
-	* @param newNickname - Sets new nickname for the user
+	* @param nickname - Sets new nickname for the user
 	*/
 	public void setNickname(String nickname)
 	{
