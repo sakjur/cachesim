@@ -30,11 +30,8 @@ public class AddressLayout {
     {
         AddressDTO rv = new AddressDTO();
         rv.offset = intToUnary(this.offsetSize) & address;
-        rv.index = (intToUnary(this.indexSize) << offsetSize) & address;
-        rv.tag = (intToUnary(this.tagSize) <<  offsetSize 
-            + indexSize) & address;
-        rv.index = rv.index >>> offsetSize;
-        rv.tag = rv.tag >>> offsetSize + indexSize;
+        rv.index = intToUnary(this.indexSize) & address >>> offsetSize;
+        rv.tag = intToUnary(this.tagSize) & address >>> offsetSize + indexSize; 
         return rv;
     }
 
@@ -68,20 +65,13 @@ public class AddressLayout {
     /**
     * Returns the unary representation of an integer.
     * <p>
-    * Sets the amount of bits in input to one. Offset is for setting a
-    * number of zeroes right of the ones.
+    * Sets the amount of bits in input to one.
     *
     * @param input Amount of bits to set to one
-    * @param offset Amount of zeroes right off the ones
     * @return A digit with a row of bits set to one
     */
-    private long intToUnary(int input, int offset)
-    {
-        return ((long) Math.pow(2, input)-1) << offset;
-    }
-
     private long intToUnary(int input)
     {
-        return intToUnary(input, 0);
+        return ((long) Math.pow(2, input)-1);
     }
 }

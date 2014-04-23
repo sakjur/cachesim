@@ -67,10 +67,18 @@ public class View
                 break;
             } else if (input.matches("^l(oad)?\\s\\d+$")) {
                 long address = Long.parseLong(input.split("\\s")[1]);
-                c.executeInstruction("load", address);
+                if (c.executeInstruction("load", address).hit) {
+                    System.out.println("Hit");
+                } else {
+                    System.out.println("Miss");
+                };
             } else if (input.matches("^s(tore)?\\s\\d+$")) {
                 long address = Long.parseLong(input.split("\\s")[1]);
-                c.executeInstruction("store", address);
+                if (c.executeInstruction("store", address).hit) {
+                    System.out.println("Hit");
+                } else {
+                    System.out.println("Miss");
+                };
             }
         }
 
