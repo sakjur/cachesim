@@ -27,7 +27,7 @@ javac :compiletest => :compile do |t|
 end
 
 task :run => :compile do |t|
-	sh "cd classes/ && java is.mjuk.cache.CacheSimulator"
+	sh "java -cp classes is.mjuk.cache.CacheSimulator"
 end
 
 task :doc => "docs" do |t|

@@ -1,7 +1,9 @@
 package is.mjuk.cache;
 
-public class AddressDTO
-{
+/**
+* Data relevant for parsing a single address
+*/
+public class AddressDTO {
     public long tag;
     public long index;
     public long offset;

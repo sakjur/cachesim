@@ -5,49 +5,44 @@ public class Controller
 	private User user;
     private CacheLayout cacheLayout;
     private DataCache dataCache;
+    private AddressLayout addressLayout;
 
-	public Controller()
-	{
+	public Controller() {
 		user = new User();
 	}
 
-	public String getDateTime()
-	{
+	public String getDateTime() {
 		return user.getDateTime();
 	}
 
     /**
     * @see is.mjuk.cache.User#setNickname(String newNickname)
     */
-    public void setNickname(String newNick)
-    {
+    public void setNickname(String newNick) {
         user.setNickname(newNick);
     }
 
-    public String getNickname()
-    {
+    public String getNickname() {
         return user.getNickname();
     } 
 
-    public void setCacheLayout(int blockSize, int blockCount, int associativity)
-    {
+    public void setCacheLayout(int blockSize, int blockCount, 
+        int associativity) {
         cacheLayout = new CacheLayout(blockSize, blockCount, associativity);
-        dataCache = cacheLayout.generateDataCache();
+        addressLayout = cacheLayout.getAddressLayout();
+        dataCache = cacheLayout.getDataCache();
     }
 
-    public String displayCache()
-    {
+    public String displayCache() {
         return dataCache.displayCache();
     }
 
-    public AddressDTO parseAddress()
-    {
-        return cacheLayout.parseAddress(0xABAD1DEA);
+    public AddressDTO parseAddress() {
+        return addressLayout.parseAddress(0xABAD1DEA);
     }
 
     // TODO: Replace with generateCacheDTO()
-    public LayoutDTO generateLayoutDTO()
-    {
+    public LayoutDTO generateLayoutDTO() {
         try {
            return cacheLayout.generateLayoutDTO();
         } catch (java.lang.NullPointerException e) {
