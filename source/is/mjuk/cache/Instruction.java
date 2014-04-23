@@ -1,15 +1,18 @@
 package is.mjuk.cache;
 
 public class Instruction {
-    private DataCache dataCache;
-    private String type; // FIXME Not properly a string
+    public enum InstructionType {
+		LOAD,
+		STORE
+	}
+	
+	private DataCache dataCache;
+    private InstructionType type;
     private AddressDTO address;
 
     public Instruction(DataCache dataCache, AddressLayout addressLayout, 
-        String type, long address) {
-        if (type.toLowerCase().equals("store") || type.toLowerCase().equals("load")) {
-            this.type = type;
-        }
+        InstructionType type, long address) {
+        this.type = type;
 
         this.address = addressLayout.parseAddress(address);
 
