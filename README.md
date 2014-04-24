@@ -19,4 +19,3 @@ Run
 ---
 You need Java and run with `java -jar cachesim.jar`
 
-Hej :) testing commits
