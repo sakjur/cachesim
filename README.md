@@ -19,6 +19,11 @@ sensitive for compile-failures)
 everything else)
 - `rake testdoc` - generate Javadoc files for tests as well as the application.
 - `rake clean` - EXTERMINATE unnecessary files :smiling_imp:
+- `rake pdf` - Generates a PDF containing the code in the project (both test 
+and source)
+- `rake kthupload kthuser=KTHUSERNAME` - uploads the _cachesim.jar_ and 
+_cachesim.pdf_ to ICTs shell servers using the user KTHUSERNAME for access
+through HTTP
 
 Run
 ---

@@ -60,6 +60,13 @@ task "docs/test.ps" => "docs" do
     sh(generate_ps "test/is/mjuk/cache/*.java", "docs/test.ps")
 end
 
+task :kthupload => [:pdf, :jar] do |t, args|
+    user = ENV['kthuser'] || 'emiltu'
+    cmdline = "scp cachesim.jar docs/cachesim.pdf " 
+    cmdline += "#{user}@shell.it.kth.se:~/public_html/"
+    sh(cmdline)
+end
+
 directory "classes"
 directory "docs"
 
