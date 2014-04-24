@@ -37,20 +37,34 @@ public class View
         c.setNickname(newNick);
         System.out.println("Your nickname is: " + c.getNickname());
     }
-
+    
+    
+    
     private void getCacheInformation()
     {
         System.out.println("USER SPECIFIES BLOCK PROPERTIES");
         System.out.println("Enter block size in bytes: ");
         int blockSize = scanner.nextInt();
+        
+        int copyOfBlockSize = blockSize;
+        
+        
         System.out.println("Enter block count: ");
         int blockCount = scanner.nextInt();
         System.out.println("Enter associativity: ");
         int associativity = scanner.nextInt();
 
         System.out.println("CALCULATES CACHE LAYOUT & CREATES CACHE");
-        c.setCacheLayout(blockSize, blockCount, associativity);
-
+        try{
+            c.setCacheLayout(blockSize, blockCount, associativity);
+        }
+        catch(java.lang.IllegalArgumentException e){
+            System.out.println("you gave me bad data. Please enter numbers" 
+                               + " that are a power of two:/ ");
+            getCacheInformation();  //Could be a bad loop, but we use it 
+                                    // anyways...
+            return;
+        }
         System.out.println("Displaying Cache Data");
         System.out.println(c.displayCache());
     }
