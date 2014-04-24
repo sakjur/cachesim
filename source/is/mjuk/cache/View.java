@@ -59,9 +59,13 @@ public class View
     {
         System.out.println("USER INPUTS INSTRUCTIONS");
         System.out.println("Write `exit` to stop the application");
+		System.out.println("To use instruction load, write 'load <memaddress>'");
+		System out.println("To use instruction write, write 'write <memaddress>");
 
         while (true) {
             String input = scanner.nextLine();
+			input = input.trim();
+
             if (input.toLowerCase().equals("exit") 
                 || input.toLowerCase().equals("x")) {
                 break;
