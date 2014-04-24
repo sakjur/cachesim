@@ -1,4 +1,5 @@
 classes/
 docs/
+*.kate*
 cachesim.jar
 *.swp
