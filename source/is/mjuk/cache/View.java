@@ -63,7 +63,7 @@ public class View
             "To use instruction load, write 'load <memaddress>'"
         );
 		System.out.println(
-            "To use instruction write, write 'write <memaddress>"
+            "To use instruction store, write 'store <memaddress>'"
         );
 
         while (true) {
@@ -83,6 +83,10 @@ public class View
                 System.out.println(
                     c.executeInstruction("store", address).toString()
                 );
+            } else if (input.matches("^$")) {
+                // Intentionally left empty
+            } else {
+                System.err.println("Instruction not found `" + input + "`");
             }
         }
 
