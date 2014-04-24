@@ -11,27 +11,31 @@ task :default => :compile
 task :jar => "cachesim.jar"
 
 jar "cachesim.jar" => :compile do |t|
-	t.files << JarFiles["classes", "**/*.class"]
-	t.main_class = "is.mjuk.cache.CacheSimulator"
-	t.manifest = {:version => '0.0.1'}
+    t.files << JarFiles["classes", "**/*.class"]
+    t.main_class = "is.mjuk.cache.CacheSimulator"
+    t.manifest = {:version => '0.0.1'}
 end
 
 javac :compile => "classes" do |t|
-	t.src << Sources["source/", "**/*.java"]
-	t.dest = 'classes'
+    t.src << Sources["source/", "**/*.java"]
+    t.dest = 'classes'
 end
 
 javac :compiletest => :compile do |t|
-	t.src << Sources["test/", "**/*.java"]
-	t.dest = 'classes'
+    t.src << Sources["test/", "**/*.java"]
+    t.dest = 'classes'
+end
+
+task :test => :compiletest do |t|
+    sh "java -cp classes is.mjuk.cache.TestMain"
 end
 
 task :run => :compile do |t|
-	sh "java -cp classes is.mjuk.cache.CacheSimulator"
+    sh "java -cp classes is.mjuk.cache.CacheSimulator"
 end
 
 task :doc => "docs" do |t|
-	sh "javadoc -sourcepath source/ -d docs/ is.mjuk.cache"
+    sh "javadoc -sourcepath source/ -d docs/ is.mjuk.cache"
 end
 
 directory "classes"

@@ -2,18 +2,18 @@ package is.mjuk.cache;
 
 public class Controller
 {
-	private User user;
+    private User user;
     private CacheLayout cacheLayout;
     private DataCache dataCache;
     private AddressLayout addressLayout;
 
-	public Controller() {
-		user = new User();
-	}
+    public Controller() {
+        user = new User();
+    }
 
-	public String getDateTime() {
-		return user.getDateTime();
-	}
+    public String getDateTime() {
+        return user.getDateTime();
+    }
 
     public InstructionDTO executeInstruction(String type, long address) {
         Instruction instruction;

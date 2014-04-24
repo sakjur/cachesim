@@ -9,46 +9,46 @@ import java.util.Date;
 */
 public class User
 {
-	private Date datetime;
-	private String nickname;
+    private Date datetime;
+    private String nickname;
 
-	public User() 
-	{
-		datetime = new Date();	
-	}
+    public User() 
+    {
+        datetime = new Date();    
+    }
 
-	/**
-	* Get currently stored datetime object as a string.
-	*/
-	public String getDateTime()
-	{
-		return this.datetime.toString(); 
-	}
+    /**
+    * Get currently stored datetime object as a string.
+    */
+    public String getDateTime()
+    {
+        return this.datetime.toString(); 
+    }
 
-	/**
-	* Sets the user's datetime variable to whatever the date and time is when
-	* the function is called.
-	*/
-	public void updateDateTime()
-	{
-		datetime = new Date();
-	}
+    /**
+    * Sets the user's datetime variable to whatever the date and time is when
+    * the function is called.
+    */
+    public void updateDateTime()
+    {
+        datetime = new Date();
+    }
 
-	/**
-	* @param nickname - Sets new nickname for the user
-	*/
-	public void setNickname(String nickname)
-	{
-		this.nickname = nickname;
-	}
+    /**
+    * @param nickname - Sets new nickname for the user
+    */
+    public void setNickname(String nickname)
+    {
+        this.nickname = nickname;
+    }
 
-	/**
-	* Gets the stored nickname
-	*
-	* @return Current value of nickname.
-	*/
-	public String getNickname()
-	{
-		return nickname;
-	}
+    /**
+    * Gets the stored nickname
+    *
+    * @return Current value of nickname.
+    */
+    public String getNickname()
+    {
+        return nickname;
+    }
 }

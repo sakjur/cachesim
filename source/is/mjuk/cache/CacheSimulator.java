@@ -18,10 +18,10 @@ public class CacheSimulator
     * Creates {@link is.mjuk.cache.Controller} and sends the controller as a
     * paramter to the creation of a {@link is.mjuk.cache.View}. 
     */
-	public static void main(String[] args) 
-	{
-		Controller c = new Controller();
+    public static void main(String[] args) 
+    {
+        Controller c = new Controller();
         View view = new View(c);
-	}
+    }
 
 }
