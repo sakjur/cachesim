@@ -5,6 +5,7 @@ require 'rake/clean'
 CLEAN.include 'classes'
 CLEAN.include 'cachesim.jar'
 CLEAN.include 'docs'
+CLEAN.include 'pdf'
 
 task :default => :compile
 
@@ -43,6 +44,22 @@ end
 
 task :testdoc => "docs" do |t|
     sh "javadoc -sourcepath test/:source/ -d docs/ is.mjuk.cache"
+end
+
+task :pdf => [:testpostscript, :postscript] do
+    sh "ps2pdf docs/source.ps docs/source.pdf"
+    sh "ps2pdf docs/test.ps docs/test.pdf"
+    sh "pdfunite docs/source.pdf docs/test.pdf docs/cachesim.pdf"
+end
+
+task :postscript => "docs" do
+    sh "enscript -M A4 -q -b '$n|%N %W|$V$%/$=($p)'\
+     -Ejava -C --toc -p - source/is/mjuk/cache/*.java > docs/source.ps"
+end
+
+task :testpostscript => "docs" do
+    sh "enscript -M A4 -q -b '$n|%N %W|$V$%/$=($p)'\
+     -Ejava -C --toc -p - test/is/mjuk/cache/*.java > docs/test.ps"
 end
 
 directory "classes"

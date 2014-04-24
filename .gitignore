@@ -3,3 +3,5 @@ docs/
 *.kate*
 cachesim.jar
 *.swp
+*.pdf
+*.ps
