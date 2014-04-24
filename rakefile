@@ -5,7 +5,6 @@ require 'rake/clean'
 CLEAN.include 'classes'
 CLEAN.include 'cachesim.jar'
 CLEAN.include 'docs'
-CLEAN.include 'pdf'
 
 task :default => :compile
 
@@ -46,21 +45,35 @@ task :testdoc => "docs" do |t|
     sh "javadoc -sourcepath test/:source/ -d docs/ is.mjuk.cache"
 end
 
-task :pdf => [:testpostscript, :postscript] do
+task :pdf => ["docs/source.ps", "docs/test.ps"] do
     sh "ps2pdf docs/source.ps docs/source.pdf"
     sh "ps2pdf docs/test.ps docs/test.pdf"
     sh "pdfunite docs/source.pdf docs/test.pdf docs/cachesim.pdf"
+    sh "rm docs/test.pdf docs/source.pdf"
 end
 
-task :postscript => "docs" do
-    sh "enscript -M A4 -q -b '$n|%N %W|$V$%/$=($p)'\
-     -Ejava -C --toc -p - source/is/mjuk/cache/*.java > docs/source.ps"
+task "docs/source.ps" => "docs" do
+    sh(generate_ps "source/is/mjuk/cache/*.java", "docs/source.ps")
 end
 
-task :testpostscript => "docs" do
-    sh "enscript -M A4 -q -b '$n|%N %W|$V$%/$=($p)'\
-     -Ejava -C --toc -p - test/is/mjuk/cache/*.java > docs/test.ps"
+task "docs/test.ps" => "docs" do
+    sh(generate_ps "test/is/mjuk/cache/*.java", "docs/test.ps")
 end
 
 directory "classes"
 directory "docs"
+
+def generate_ps(input, output, format="PostScript", pages_per_page="1")
+    cmdline = "enscript -q " # Quietly run enscript
+    cmdline += "-M A4 " # Output in A4 format
+    cmdline += "--header='$n|%N %D{%F}|$%/$=' " # Header... well. Yeah.
+    cmdline += "-Ejava " # Highlight as Java
+    cmdline += "-C " # Line numbering!
+    cmdline += "-w #{format} "
+    cmdline += "-U #{pages_per_page} "
+    cmdline += "-p - " # Send to stdout
+    cmdline += input
+    cmdline += " > " # Pipe to
+    cmdline += output
+    return cmdline
+end
