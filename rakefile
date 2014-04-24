@@ -22,12 +22,15 @@ javac :compile => "classes" do |t|
 end
 
 javac :compiletest => :compile do |t|
+    t.src << Sources["source/", "**/*.java"]
     t.src << Sources["test/", "**/*.java"]
+    t.classpath << Dir["/usr/share/java/junit4.jar"]
     t.dest = 'classes'
 end
 
 task :test => :compiletest do |t|
-    sh "java -cp classes is.mjuk.cache.TestMain"
+    sh "java -cp classes:/usr/share/java/junit4.jar \
+        org.junit.runner.JUnitCore is.mjuk.cache.TestMain"
 end
 
 task :run => :compile do |t|
