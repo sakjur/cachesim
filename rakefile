@@ -41,5 +41,9 @@ task :doc => "docs" do |t|
     sh "javadoc -sourcepath source/ -d docs/ is.mjuk.cache"
 end
 
+task :testdoc => "docs" do |t|
+    sh "javadoc -sourcepath test/:source/ -d docs/ is.mjuk.cache"
+end
+
 directory "classes"
 directory "docs"
