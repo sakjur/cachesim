@@ -20,10 +20,10 @@ public class Controller
 
         if(type.equals("load")) {
             instruction = new Instruction(dataCache, addressLayout, 
-                Instruction.InstructionType.LOAD, address);
+                InstructionType.LOAD, address);
         } else if (type.equals("store")) {            
             instruction = new Instruction(dataCache, addressLayout, 
-                Instruction.InstructionType.STORE, address);
+                InstructionType.STORE, address);
         } else {
             InstructionDTO rv = null;
             return rv;

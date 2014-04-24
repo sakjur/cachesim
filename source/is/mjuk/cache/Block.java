@@ -91,8 +91,8 @@ public class Block {
         } else {
             rv.append("invalid");
         }
-        rv.append(" ");
-        rv.append(this.tag);
+        rv.append(" 0x");
+        rv.append(Long.toString(this.tag, 16));
         return rv.toString();
     }
 }

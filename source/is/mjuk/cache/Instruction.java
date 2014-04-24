@@ -1,12 +1,7 @@
 package is.mjuk.cache;
 
 public class Instruction {
-    public enum InstructionType {
-		LOAD,
-		STORE
-	}
-	
-	private DataCache dataCache;
+    private DataCache dataCache;
     private InstructionType type;
     private AddressDTO address;
 

@@ -24,7 +24,8 @@ public class DataCache {
     * {@link is.mjuk.cache.LayoutDTO}
     */
     public DataCache(LayoutDTO layout) {
-        this.blockset = new Block[layout.associativity][layout.blockCount];
+        this.blockset = 
+            new Block[layout.getAssociativity()][layout.getBlockCount()];
         for (int i = 0; i < this.blockset[0].length; i++) {
             for (int ii = 0; ii < this.blockset.length; ii++) {
                 blockset[ii][i] = new Block();
@@ -33,7 +34,11 @@ public class DataCache {
     }
 
     /**
-    * 
+    * Returns the data in the cache as a string
+    * <p>
+    * Returns every {@link is.mjuk.cache.Block} of the cache in string 
+    * representation.
+    *
     */
     public String displayCache() {
         StringBuilder cacheDisplay = new StringBuilder();
@@ -48,26 +53,53 @@ public class DataCache {
         return cacheDisplay.toString();
     }
 
+    /**
+    * Loads data from a specific cache address
+    * <p>
+    * Increments the load counter and then checks if a single position
+    * in the cache is already existing. If it's not, updates cache
+    * accordingly
+    */
     public boolean loadData(AddressDTO address){
+        this.loads += 1;
+        return updateCachePosition(address);
+    }
+
+    /**
+    * Stores data at a specific cache address
+    * <p>
+    * Increments the store counter and then checks if a single position
+    * in the cache is already existing. If it's not, updates cache
+    * accordingly
+    */
+    public boolean storeData(AddressDTO address){
+        this.stores += 1;
+        return updateCachePosition(address);
+    }
+
+    private boolean updateCachePosition(AddressDTO address) {
         int cacheSet = -1;
 
         for (int i = 0; i < this.blockset.length; i++) {
-            if (this.blockset[i][(int) address.index].isValid(address.tag)) {
+            if (this.blockset[i][(int) address.getIndex()]
+                .isValid(address.getTag())) {
+                this.hits += 1;
                 return true;
-            } else if (this.blockset[i][(int) address.index].isValid() == false) {
+            } else if (this.blockset[i][(int) address.getIndex()]
+                .isValid() == false) {
                 cacheSet = i;
             }
         }
 
         if (cacheSet == -1) {
-            cacheSet = (int) Math.floor(Math.random() * this.blockset.length);
+            cacheSet = (int) Math.floor(Math.random() 
+                * this.blockset.length);
         }
 
-        this.blockset[cacheSet][(int) address.index].setTag(address.tag);
-        return false;
-    }
+        this.blockset[cacheSet][(int) address.getIndex()]
+            .setTag(address.getTag());
 
-    public boolean storeData(AddressDTO address){
-        return loadData(address);
+        this.misses += 1;
+        return false;
     }
 }

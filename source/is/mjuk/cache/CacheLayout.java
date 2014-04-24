@@ -52,12 +52,12 @@ public class CacheLayout
     public LayoutDTO generateLayoutDTO()
     {
         LayoutDTO dto = new LayoutDTO();
-        dto.blockSize = this.blockSize;
-        dto.blockCount = this.blockCount;
-        dto.associativity = this.associativity;
-        dto.tagSize = addressLayout.getTagSize();
-        dto.indexSize = addressLayout.getIndexSize();
-        dto.offsetSize = addressLayout.getOffsetSize();
+        dto.setBlockSize(this.blockSize);
+        dto.setBlockCount(this.blockCount);
+        dto.setAssociativity(this.associativity);
+        dto.setTagSize(addressLayout.getTagSize());
+        dto.setIndexSize(addressLayout.getIndexSize());
+        dto.setOffsetSize(addressLayout.getOffsetSize());
         return dto;
     }
 

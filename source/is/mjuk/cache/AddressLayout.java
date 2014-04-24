@@ -29,9 +29,10 @@ public class AddressLayout {
     public AddressDTO parseAddress(long address)
     {
         AddressDTO rv = new AddressDTO();
-        rv.offset = intToUnary(this.offsetSize) & address;
-        rv.index = intToUnary(this.indexSize) & address >>> offsetSize;
-        rv.tag = intToUnary(this.tagSize) & address >>> offsetSize + indexSize; 
+        rv.setOffset(intToUnary(this.offsetSize) & address);
+        rv.setIndex(intToUnary(this.indexSize) & address >>> offsetSize);
+        rv.setTag(intToUnary(this.tagSize) & address 
+            >>> offsetSize + indexSize); 
         return rv;
     }
 
