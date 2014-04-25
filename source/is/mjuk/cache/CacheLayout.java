@@ -19,8 +19,8 @@ public class CacheLayout
     private int blockCount;
     private int associativity;
 
-    private AddressLayout addressLayout;
-    private DataCache dataCache;
+    private AddressLayout addressLayout = null;
+    private DataCache dataCache = null;
 
     /**
     * Constructor for CacheLayout
@@ -36,8 +36,6 @@ public class CacheLayout
         this.blockSize = blockSize;
         this.blockCount = blockCount;
         this.associativity = associativity;
-        this.addressLayout = this.calculateAddressLayout();
-        this.dataCache = this.generateDataCache();
     }
 
     /**
@@ -68,6 +66,10 @@ public class CacheLayout
     * @return {@link is.mjuk.cache.AddressLayout}
     */
     public AddressLayout getAddressLayout() {
+        if (this.addressLayout == null) {
+            this.addressLayout = this.calculateAddressLayout();
+        }
+
         return this.addressLayout;
     }
 
@@ -79,6 +81,10 @@ public class CacheLayout
     */
     public DataCache getDataCache()
     {
+        if (this.dataCache == null) {
+            this.dataCache = this.generateDataCache();    
+        }
+        
         return this.dataCache;
     }
 
