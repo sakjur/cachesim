@@ -82,7 +82,7 @@ public class View
 
         while (true) {
             String input = scanner.nextLine();
-          	input = input.trim();
+               input = input.trim();
 
             if (input.toLowerCase().equals("exit") 
                 || input.toLowerCase().equals("x")) {
