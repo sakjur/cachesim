@@ -11,10 +11,10 @@ import java.lang.Math;
 *
 */
 public class DataCache {
-    private int hits;
-    private int misses;
-    private int loads;
-    private int stores;
+    private int hits = 0;
+    private int misses = 0;
+    private int loads = 0;
+    private int stores = 0;
     private Block[][] blockset;
 
     /**
@@ -54,6 +54,64 @@ public class DataCache {
     }
 
     /**
+    * @return Number of sets in the cache (associativity)
+    */
+    public int getNumberOfSets() {
+        return this.blockset.length;
+    }
+
+    /**
+    * @return Number of blocks in each set (block count)
+    */
+    public int getNumberOfBlocks() {
+        return this.blockset[0].length;
+    }
+
+    /**
+    * @return Number of hits since creation of DataCache
+    */
+    public int getHits() {
+        return this.hits;
+    }
+
+    /**
+    * @return Number of misses since creation of DataCache
+    */
+    public int getMisses() {
+        return this.misses;
+    }
+
+    /**
+    * Returns the hitrate of the cache
+    * <p>
+    * Calculates number of hits divided by number of hits and misses.
+    * Starts at zero if there are no hits nor misses.
+    *
+    * @return Hitrate since creation of DataCache
+    */
+    public double getHitrate() {
+        if ((this.hits+this.misses) == 0) {
+          return 0.0;  
+        }
+
+        return (double) this.hits / (double) (this.hits+this.misses);
+    }
+
+    /**
+    * @return Number of store operations on cache since creation
+    */
+    public int getStores() {
+        return this.stores;
+    }
+
+    /**
+    * @return Number of load operations on cache since creation
+    */
+    public int getLoads() {
+        return this.loads;
+    }
+
+    /**
     * Loads data from a specific cache address
     * <p>
     * Increments the load counter and then checks if a single position
@@ -86,7 +144,7 @@ public class DataCache {
                 this.hits += 1;
                 return true;
             } else if (this.blockset[i][(int) address.getIndex()]
-                .isValid() == false) {
+              .isValid() == false) {
                 cacheSet = i;
             }
         }

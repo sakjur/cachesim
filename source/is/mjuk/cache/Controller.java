@@ -11,8 +11,8 @@ public class Controller
         user = new User();
     }
 
-    public String getDateTime() {
-        return user.getDateTime();
+    public String getDateTimeString() {
+        return user.getDateTime().toString();
     }
 
     public InstructionDTO executeInstruction(String type, long address) {

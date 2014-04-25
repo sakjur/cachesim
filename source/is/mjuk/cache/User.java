@@ -20,9 +20,9 @@ public class User
     /**
     * Get currently stored datetime object as a string.
     */
-    public String getDateTime()
+    public Date getDateTime()
     {
-        return this.datetime.toString(); 
+        return this.datetime; 
     }
 
     /**

@@ -7,7 +7,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
-    CacheLayoutTest.class 
+    CacheLayoutTest.class,
+    DataCacheTest.class 
 })
 public class TestMain {
     // Intentionally left empty

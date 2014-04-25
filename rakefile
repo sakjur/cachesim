@@ -67,6 +67,12 @@ task :kthupload => [:pdf, :jar] do |t, args|
     sh(cmdline)
 end
 
+task :tabs do
+    # Grep for tabs, do not fail if there are none (there shouldn't be any!)
+    sh "grep -rlPI \"\\t\" source/ || true"
+    sh "grep -rlPI \"\\t\" test/ || true"
+end
+
 directory "classes"
 directory "docs"
 

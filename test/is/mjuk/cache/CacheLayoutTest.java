@@ -16,15 +16,27 @@ public class CacheLayoutTest {
         CacheLayout cacheLayout = new CacheLayout(4, 4, 1);
         LayoutDTO cacheData = cacheLayout.generateLayoutDTO();
 
-        assertEquals(cacheData.getBlockSize(), 4);
-        assertEquals(cacheData.getBlockCount(), 4);
-        assertEquals(cacheData.getAssociativity(), 1);
+        assertEquals("BlockSize should be 4", cacheData.getBlockSize(), 4);
+        assertEquals("BlockCount should be 4", cacheData.getBlockCount(), 4);
+        assertEquals("Associativity should be 1", 
+            cacheData.getAssociativity(), 1);
+    }
+
+    @Test
+    public void creatingDataCache() {
+        CacheLayout cacheLayout = new CacheLayout(4, 4, 1);
+        DataCache dataCache = cacheLayout.getDataCache();
+
+        assertEquals("There should be one set", dataCache.getNumberOfSets(), 1);
+        assertEquals("There should be four blocks", 
+            dataCache.getNumberOfBlocks(), 4);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void createInvalidCacheLayout() {
         // BlockSize and BlockCount must be powers of two.
-        CacheLayout cacheLayout = new CacheLayout(3, 4, 1);        
+        CacheLayout cacheLayout = new CacheLayout(3, 4, 1);
+        cacheLayout.getAddressLayout();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -33,5 +45,6 @@ public class CacheLayoutTest {
         // maximum 32.
         CacheLayout cacheLayout = new CacheLayout((int) Math.pow(2, 30), 
             (int) Math.pow(2, 4), 1);
+        cacheLayout.getAddressLayout();
     }
 }
