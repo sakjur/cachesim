@@ -70,6 +70,7 @@ public class Controller
         cacheLayout = new CacheLayout(blockSize, blockCount, associativity);
         addressLayout = cacheLayout.getAddressLayout();
         dataCache = cacheLayout.getDataCache();
+        store.storeLayoutDTO(this.cacheLayout.generateLayoutDTO());
     }
 
     public String displayCache() {
