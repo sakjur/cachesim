@@ -33,6 +33,23 @@ public class Controller
     };
 
     /**
+    * Gets hitrate from the datacache object
+    */
+    public double getHitrate() {
+        return dataCache.getHitrate();
+    }
+
+    /**
+    * Calculates and displays missrate.
+    * <p>
+    * Subtracts hitrate from 1.
+    */
+    public double getMissrate() {
+        double hitrate = dataCache.getHitrate();
+        return 1.00 - hitrate;
+    }
+
+    /**
     * @see is.mjuk.cache.User#setNickname(String newNickname)
     */
     public void setNickname(String newNick) {
