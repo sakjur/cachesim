@@ -1,5 +1,7 @@
 package is.mjuk.utils;
 
+import java.lang.Math;
+
 /**
 * mjuk.is Mathematics Library for Java
 */
