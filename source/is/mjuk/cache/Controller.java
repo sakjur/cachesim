@@ -60,7 +60,7 @@ public class Controller
         return user.getNickname();
     } 
 
-    public void setCacheLayout(int blockSize, int blockCount, 
+    public void setCacheLayout(int blockSize, int blockCount,
         int associativity) {
         cacheLayout = new CacheLayout(blockSize, blockCount, associativity);
         addressLayout = cacheLayout.getAddressLayout();
@@ -79,5 +79,15 @@ public class Controller
             System.err.println("Must generate cache layout before layout DTO");
             throw e;
         }
+    }
+
+    public SimulationDTO getSimulationData(){
+        SimulationDTO simDTO = new SimulationDTO();
+        simDTO.setUser(this.user);
+        simDTO.setHitRate(this.dataCache.getHitrate());
+        simDTO.setStores(this.dataCache.getStores());
+        simDTO.setLoads(this.dataCache.getLoads());
+        simDTO.setLayoutDTO(this.cacheLayout.generateLayoutDTO());
+        return simDTO;
     }
 }

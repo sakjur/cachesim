@@ -1,6 +1,7 @@
 package is.mjuk.cache;
 
 import java.util.Scanner;
+import java.util.Date;
 
 /**
 * User interaction class
@@ -26,6 +27,7 @@ public class View
         this.requireNickname();
         this.getCacheInformation();
         this.getUserInstruction();
+        this.endSimulation();
     }
 
     private void requireNickname()
@@ -110,7 +112,28 @@ public class View
                 System.err.println("Instruction not found `" + input + "`");
             }
         }
+    }
 
-        System.out.println(c.displayCache());
+    private void endSimulation(){
+        System.out.println(c.displayCache());   // TODO: Remove
+        SimulationDTO simDTO = c.getSimulationData();
+        System.out.println("Simulation data:");
+        System.out.println("Username: " + simDTO.getNickname());
+        System.out.println("Load instructions: " + simDTO.getLoads());
+        System.out.println("Store instructions: " + simDTO.getStores());
+        System.out.println("Hit rate: " + simDTO.getHitrate());
+        System.out.println("Miss rate: " + simDTO.getMissrate());
+        System.out.println("Block Size: "
+            + simDTO.getLayoutDTO().getBlockSize() + " bytes");
+        System.out.println("Block Count: "
+            + simDTO.getLayoutDTO().getBlockCount() + " blocks");
+        System.out.println("Associativity: "
+            + simDTO.getLayoutDTO().getAssociativity());
+        System.out.println("Address tag size: "
+            + simDTO.getLayoutDTO().getTagSize() + " bits");
+        System.out.println("Address index size: "
+            + simDTO.getLayoutDTO().getIndexSize() + " bits");
+        System.out.println("Address offset size: "
+            + simDTO.getLayoutDTO().getOffsetSize() + " bits");
     }
 }
