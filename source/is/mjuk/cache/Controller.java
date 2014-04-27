@@ -1,5 +1,8 @@
 package is.mjuk.cache;
 
+/**
+* Controller for communication between storage, models and view.
+*/
 public class Controller
 {
     private User user;
@@ -8,14 +11,40 @@ public class Controller
     private AddressLayout addressLayout;
     private Storage store = Storage.getStorage();
 
+    /**
+    * Constructs a controller with an embedded
+    * {@link is.mjuk.cache.User}-object
+    */
     public Controller() {
         user = new User();
     }
 
+    /**
+    * Returns the {@link is.mjuk.cache.User}-object's stored datetime
+    * as a string.
+    */
     public String getDateTimeString() {
         return user.getDateTime().toString();
     }
 
+    /**
+    * Creates an Instruction object and executes a single instruction
+    * <p>
+    * Creates an Instruction object and loads it with the datacache and
+    * addresslayout objects and then requests it to perform it's
+    * instruction which status is sent through back through a
+    * {@link is.mjuk.cache.InstructionDTO} object which is subsequently
+    * stored in the {@link is.mjuk.cache.Storage}-singleton and returned
+    * to the callee.
+    *
+    * @param type String containing data of instruction type
+    * (either store or load)
+    * @param address A long containing the address to perform the
+    * instruction on.
+    * @return {@link is.mjuk.cache.InstructionDTO} containing data about
+    * the instruction.
+    * @see is.mjuk.cache.Instruction
+    */
     public InstructionDTO executeInstruction(String type, long address) {
         Instruction instruction;
 
@@ -55,16 +84,32 @@ public class Controller
     }
 
     /**
+    * Setter for the user-property's nickname.
     * @see is.mjuk.cache.User#setNickname(String newNickname)
     */
     public void setNickname(String newNick) {
         user.setNickname(newNick);
     }
 
+    /**
+    * Getter for the user-property's nickname.
+    * @see is.mjuk.cache.User#getNickname()
+    */
     public String getNickname() {
         return user.getNickname();
     } 
 
+    /**
+    * WARNING: Will flush cache. Updates the controller's cache layout
+    * object.
+    * <p>
+    * Updates the object containing a {@link is.mjuk.cache.CacheLayout}
+    * contained within the controller. Also updates the
+    * {@link is.mjuk.cache.AddressLayout} and
+    * {@link is.mjuk.cache.DataCache}.
+    * Stores the {@link is.mjuk.cache.LayoutDTO} of the created cache
+    * layout in the {@link is.mjuk.cache.Storage} singleton.
+    */
     public void setCacheLayout(int blockSize, int blockCount,
         int associativity) {
         cacheLayout = new CacheLayout(blockSize, blockCount, associativity);
@@ -73,20 +118,18 @@ public class Controller
         store.storeLayoutDTO(this.cacheLayout.generateLayoutDTO());
     }
 
+    /**
+    * Returns a string representation of the cache.
+    */
     public String displayCache() {
         return dataCache.displayCache();
     }
 
-    // TODO: Replace with generateCacheDTO()
-    public LayoutDTO generateLayoutDTO() {
-        try {
-           return cacheLayout.generateLayoutDTO();
-        } catch (java.lang.NullPointerException e) {
-            System.err.println("Must generate cache layout before layout DTO");
-            throw e;
-        }
-    }
-
+    /**
+    * Creates and returns data relevant to the simulation as a
+    * {@link is.mjuk.cache.SimulationDTO} object.
+    * @see is.mjuk.cache.SimulationDTO
+    */
     public SimulationDTO getSimulationData(){
         store.storeHitrate(this.dataCache.getHitrate());
         store.storeNickname(this.user.getNickname());
