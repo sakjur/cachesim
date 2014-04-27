@@ -68,7 +68,7 @@ public class Storage {
     /**
      * Set the date to store
      *
-     * @param satetime The date to set to
+     * @param datetime The date to set to
      */
     public void storeDateTime(Date datetime) {
         this.datetime = datetime;
