@@ -9,11 +9,20 @@ public class SimulationDTO {
     private double hitRate;
     private int loads;
     private int stores;
-    private User user;
+    private String nickname;
+    private Date dateTime;
 
     private LayoutDTO layoutDTO;
 
     public SimulationDTO(){
+    }
+
+    public SimulationDTO(double hitRate, String nickname,
+        Date dateTime, LayoutDTO layoutDTO) {
+        this.hitRate = hitRate;
+        this.nickname = nickname;
+        this.dateTime = dateTime;
+        this.layoutDTO = layoutDTO;
     }
 
     public void setHitRate(double hitRate){
@@ -29,15 +38,16 @@ public class SimulationDTO {
     }
 
     public void setUser(User user){
-        this.user = user;
+        this.nickname = user.getNickname();
+        this.dateTime = user.getDateTime();
     }
 
     public String getNickname(){
-        return this.user.getNickname();
+        return this.nickname;
     }
 
     public Date getDateTime(){
-        return this.user.getDateTime();
+        return this.dateTime;
     }
 
     public void setStores(int stores){

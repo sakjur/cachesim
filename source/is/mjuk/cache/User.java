@@ -7,21 +7,18 @@ import java.util.Date;
 *
 * @author Emil Tullstedt
 */
-public class User
-{
+public class User {
     private Date datetime;
     private String nickname;
 
-    public User() 
-    {
+    public User() {
         datetime = new Date();    
     }
 
     /**
     * Get currently stored datetime object as a string.
     */
-    public Date getDateTime()
-    {
+    public Date getDateTime() {
         return this.datetime; 
     }
 
@@ -35,10 +32,17 @@ public class User
     }
 
     /**
+    * Sets the user's datetime variable to unixtime defined in parameters
+    * @param unixtime Timestamp for a specific time to set the users date too.
+    */
+    public void updateDateTime(long unixtime) {
+        datetime = new Date(unixtime);
+    }
+
+    /**
     * @param nickname - Sets new nickname for the user
     */
-    public void setNickname(String nickname)
-    {
+    public void setNickname(String nickname) {
         this.nickname = nickname;
     }
 
@@ -47,8 +51,7 @@ public class User
     *
     * @return Current value of nickname.
     */
-    public String getNickname()
-    {
+    public String getNickname() {
         return nickname;
     }
 }

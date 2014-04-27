@@ -6,6 +6,7 @@ public class Controller
     private CacheLayout cacheLayout;
     private DataCache dataCache;
     private AddressLayout addressLayout;
+    private Storage store = Storage.getStorage();
 
     public Controller() {
         user = new User();
@@ -29,7 +30,11 @@ public class Controller
             return rv;
         }
 
-        return instruction.executeInstruction();
+        InstructionDTO instructionDTO = instruction.executeInstruction();
+
+        store.addInstructionDTO(instructionDTO);
+
+        return instructionDTO;
     };
 
     /**
@@ -82,12 +87,14 @@ public class Controller
     }
 
     public SimulationDTO getSimulationData(){
-        SimulationDTO simDTO = new SimulationDTO();
-        simDTO.setUser(this.user);
-        simDTO.setHitRate(this.dataCache.getHitrate());
+        store.storeHitrate(this.dataCache.getHitrate());
+        store.storeNickname(this.user.getNickname());
+        store.storeDateTime(this.user.getDateTime());
+        store.storeLayoutDTO(this.cacheLayout.generateLayoutDTO());
+
+        SimulationDTO simDTO = store.createDTO();
         simDTO.setStores(this.dataCache.getStores());
         simDTO.setLoads(this.dataCache.getLoads());
-        simDTO.setLayoutDTO(this.cacheLayout.generateLayoutDTO());
         return simDTO;
     }
 }
