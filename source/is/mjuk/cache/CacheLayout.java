@@ -1,6 +1,6 @@
 package is.mjuk.cache;
 
-import java.lang.Math;
+import is.mjuk.utils.MisMath;
 import java.lang.IllegalArgumentException;
 
 /**
@@ -100,14 +100,14 @@ public class CacheLayout
         int offset = 0;
         int index = 0;
 
-        if (log2(this.blockSize) % 1.00 == 0.00) {
-            offset = (int) log2(this.blockSize);
+        if (MisMath.log2(this.blockSize) % 1.00 == 0.00) {
+            offset = (int) MisMath.log2(this.blockSize);
         } else {
             throw new IllegalArgumentException();
         }
 
-        if (log2(this.blockCount) % 1.00 == 0.00) {
-            index = (int) log2(this.blockCount);
+        if (MisMath.log2(this.blockCount) % 1.00 == 0.00) {
+            index = (int) MisMath.log2(this.blockCount);
         } else {
             throw new IllegalArgumentException();
         }
@@ -119,14 +119,6 @@ public class CacheLayout
         
         AddressLayout rv = new AddressLayout(tag, index, offset);
         return rv;
-    }
-
-    private double log2(double n) {
-        return Math.log(n)/Math.log(2.0);
-    }
-
-    private double log2(int n) {
-        return log2((double) n);
     }
 
 }

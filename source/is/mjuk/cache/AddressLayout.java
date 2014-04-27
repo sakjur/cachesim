@@ -1,5 +1,7 @@
 package is.mjuk.cache;
 
+import is.mjuk.utils.MisMath;
+
 /**
 * Stores data relevant to parsing addresses for the cache
 */
@@ -29,9 +31,9 @@ public class AddressLayout {
     public AddressDTO parseAddress(long address)
     {
         AddressDTO rv = new AddressDTO();
-        rv.setOffset(intToUnary(this.offsetSize) & address);
-        rv.setIndex(intToUnary(this.indexSize) & address >>> offsetSize);
-        rv.setTag(intToUnary(this.tagSize) & address 
+        rv.setOffset(MisMath.intToUnary(this.offsetSize) & address);
+        rv.setIndex(MisMath.intToUnary(this.indexSize) & address >>> offsetSize);
+        rv.setTag(MisMath.intToUnary(this.tagSize) & address
             >>> offsetSize + indexSize); 
         return rv;
     }
@@ -63,16 +65,4 @@ public class AddressLayout {
         return this.offsetSize;
     }
 
-    /**
-    * Returns the unary representation of an integer.
-    * <p>
-    * Sets the amount of bits in input to one.
-    *
-    * @param input Amount of bits to set to one
-    * @return A digit with a row of bits set to one
-    */
-    private long intToUnary(int input)
-    {
-        return ((long) Math.pow(2, input)-1);
-    }
 }
