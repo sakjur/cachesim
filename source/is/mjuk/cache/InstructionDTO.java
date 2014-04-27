@@ -20,34 +20,62 @@ public class InstructionDTO {
         this.type = type;
     }
 
+    /**
+     * Emty constructor
+     */
     public InstructionDTO() {
         // Intentionally left empty.
     }
 
+    /**
+     * Get hit
+     */
     public boolean getHit() {
         return this.hit;
     }
 
+    /**
+     * Set if it was a hit
+     *
+     * @param hit true if it was a hit
+     */
     public void setHit(boolean hit) {
         this.hit = hit;
     }
 
+    /**
+     * Return this instructions address
+     */
     public AddressDTO getAddress() {
         return this.address;
     }
 
+    /**
+     * Set this instructions address
+     *
+     * @param address {@link is.mjuk.cache.AddressDTO} for this instruction
+     */
     public void setAddress(AddressDTO address) {
         this.address = address;
     }
 
+    /**
+     * Get the {@link is.mjuk.cache.InstructionType} of this instruction
+     */
     public InstructionType getType() {
         return type;
     }
 
+    /**
+     * Set the {@link is.mjuk.cache.InstructionType} of this instryction
+     */
     public void setType(InstructionType type) {
         this.type = type;
     }
 
+    /**
+     * Converts this DTO to a string
+     */
     public String toString() {
         StringBuilder rv = new StringBuilder();
         if (this.hit) {
