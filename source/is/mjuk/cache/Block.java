@@ -36,6 +36,7 @@ public class Block {
     }
 
     /**
+    * Checks the block if it's validity property is set to true
     */
     public boolean isValid() {
         if (this.validity == true) {
