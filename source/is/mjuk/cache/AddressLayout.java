@@ -28,13 +28,21 @@ public class AddressLayout {
     * @return An {@link is.mjuk.cache.AddressDTO} containing the 
     * tag, index and offset of the input address
     */
-    public AddressDTO parseAddress(long address)
+    public AddressDTO parseAddress (long address) throws IllegalAddressException
     {
+        if ((0b11 & address) != 0x0) {
+            String error = "Memory address 0x" + Long.toString(address, 16)
+                + " is not divisible by four and do not point at a valid"
+                + " block address.";
+            throw new IllegalAddressException(error);
+        }
+
         AddressDTO rv = new AddressDTO();
         rv.setOffset(MisMath.intToUnary(this.offsetSize) & address);
-        rv.setIndex(MisMath.intToUnary(this.indexSize) & address >>> offsetSize);
+        rv.setIndex(MisMath.intToUnary(this.indexSize) & address
+            >>> offsetSize);
         rv.setTag(MisMath.intToUnary(this.tagSize) & address
-            >>> offsetSize + indexSize); 
+            >>> offsetSize + indexSize);
         return rv;
     }
 

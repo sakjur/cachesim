@@ -30,7 +30,6 @@ public class CacheLayout
     * @param blockSize Amount of <i>bytes</i> in a single block
     * @param blockCount Amount of blocks in the cache
     * @param associativity Associativity of the cache
-    * @throws java.lang.IllegalArgumentException
     */
     public CacheLayout(int blockSize, int blockCount, int associativity) {
         this.blockSize = blockSize;
@@ -66,6 +65,7 @@ public class CacheLayout
     * already.
     *
     * @return {@link is.mjuk.cache.AddressLayout}
+    * @throws TODO
     */
     public AddressLayout getAddressLayout() {
         if (this.addressLayout == null) {

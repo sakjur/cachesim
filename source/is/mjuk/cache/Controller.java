@@ -45,7 +45,8 @@ public class Controller
     * the instruction.
     * @see is.mjuk.cache.Instruction
     */
-    public InstructionDTO executeInstruction(String type, long address) {
+    public InstructionDTO executeInstruction(String type, long address)
+    throws IllegalAddressException {
         Instruction instruction;
 
         if(type.equals("load")) {

@@ -92,14 +92,19 @@ public class View
             } else if (input.matches("^[ls](oad|tore)?\\s\\d+$")) {
                 long address = Long.parseLong(input.split("\\s")[1]);
 
-                if (input.split("\\s")[0].matches("^l(oad)?$")) {
-                    System.out.println(
-                        c.executeInstruction("load", address).toString()
-                    );
-                } else if (input.split("\\s")[0].matches("^s(tore)?$")) {
-                    System.out.println(
-                        c.executeInstruction("store", address).toString()
-                    );
+                try {
+                    if (input.split("\\s")[0].matches("^l(oad)?$")) {
+                        System.out.println(
+                            c.executeInstruction("load", address).toString()
+                        );
+                    } else if (input.split("\\s")[0].matches("^s(tore)?$")) {
+                        System.out.println(
+                            c.executeInstruction("store", address).toString()
+                        );
+                    }
+                } catch(IllegalAddressException e) {
+                    System.out.println("Error parsing memory address: " + e);
+                    continue;
                 }
 
                 System.out.printf(

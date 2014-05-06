@@ -24,7 +24,8 @@ public class Instruction {
     * @param address Address of the destinated memory block.
     */
     public Instruction(DataCache dataCache, AddressLayout addressLayout, 
-        InstructionType type, long address) {
+        InstructionType type, long address)
+    throws IllegalAddressException {
         this.type = type;
 
         this.address = addressLayout.parseAddress(address);
