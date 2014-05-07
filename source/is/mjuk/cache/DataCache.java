@@ -137,14 +137,15 @@ public class DataCache {
 
     private boolean updateCachePosition(AddressDTO address) {
         int cacheSet = -1;
+        Block currentBlock;
 
         for (int i = 0; i < this.blockset.length; i++) {
-            if (this.blockset[i][(int) address.getIndex()]
-                .isValid(address.getTag())) {
+            currentBlock = this.blockset[i][(int) address.getIndex()];
+
+            if (currentBlock.isValid(address.getTag())) {
                 this.hits += 1;
                 return true;
-            } else if (this.blockset[i][(int) address.getIndex()]
-              .isValid() == false) {
+            } else if (currentBlock.isValid() == false) {
                 cacheSet = i;
             }
         }
@@ -154,8 +155,8 @@ public class DataCache {
                 * this.blockset.length);
         }
 
-        this.blockset[cacheSet][(int) address.getIndex()]
-            .setTag(address.getTag());
+        currentBlock = this.blockset[cacheSet][(int) address.getIndex()];
+        currentBlock.setTag(address.getTag());
 
         this.misses += 1;
         return false;
