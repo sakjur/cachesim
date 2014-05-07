@@ -33,6 +33,7 @@ public class View
     private void requireNickname()
     {
         System.out.println("ASKS USER TO ENTER USER PROPERTIES");
+        System.out.println("----------------------------------\n");
         System.out.println("Please enter nickname: ");
         String newNick = scanner.nextLine();
 
@@ -46,7 +47,8 @@ public class View
     {
         boolean legalData = true;
 
-        System.out.println("USER SPECIFIES BLOCK PROPERTIES");
+        System.out.println("\nUSER SPECIFIES BLOCK PROPERTIES");
+        System.out.println("-------------------------------\n");
         do {
             System.out.println("Enter block size in bytes: ");
             int blockSize = scanner.nextInt();
@@ -89,8 +91,10 @@ public class View
             if (input.toLowerCase().equals("exit") 
                 || input.toLowerCase().equals("x")) {
                 break;
-            } else if (input.matches("^[ls](oad|tore)?\\s\\d+$")) {
-                long address = Long.parseLong(input.split("\\s")[1]);
+            } else if (input.matches("^[ls](oad|tore)?\\s\\d+$") ||
+                        input.matches("^[ls](oad|tore)?\\s\\b0[xX][0-9a-fA-F]+\\b")) {
+                //long address = Long.parseLong(input.split("\\s")[1]);
+                long address = Long.decode(input.split("\\s")[1]);
 
                 try {
                     if (input.split("\\s")[0].matches("^l(oad)?$")) {
