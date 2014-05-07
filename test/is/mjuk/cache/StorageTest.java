@@ -12,7 +12,7 @@ public class StorageTest {
     Storage store = Storage.getStorage();
 
     @Test
-    public void addInstructionDTO() {
+    public void addInstructionDTO() throws IllegalAddressException {
         store.clean();
 
         CacheLayout cacheLayout = new CacheLayout(16, 16, 1);
@@ -20,13 +20,13 @@ public class StorageTest {
         AddressLayout addressLayout = cacheLayout.getAddressLayout();
 
         Instruction instruction = new Instruction(dataCache, addressLayout,
-            InstructionType.LOAD, 0xABAD1DEA);
+            InstructionType.LOAD, 0xABAD1DEC);
         InstructionDTO instructionDTO = instruction.executeInstruction();
         store.addInstructionDTO(instructionDTO);
         assertFalse(store.getInstructionDTO(0).getHit());
 
         instruction = new Instruction(dataCache, addressLayout,
-            InstructionType.LOAD, 0xABAD1DEA);
+            InstructionType.LOAD, 0xABAD1DEC);
         instructionDTO = instruction.executeInstruction();
         store.addInstructionDTO(instructionDTO);
         assertTrue(store.getInstructionDTO(1).getHit());
@@ -35,7 +35,7 @@ public class StorageTest {
     }
 
     @Test
-    public void clean() {
+    public void clean() throws IllegalAddressException {
         store.clean();
 
         CacheLayout cacheLayout = new CacheLayout(16, 16, 1);
@@ -43,7 +43,7 @@ public class StorageTest {
         AddressLayout addressLayout = cacheLayout.getAddressLayout();
 
         Instruction instruction = new Instruction(dataCache, addressLayout,
-            InstructionType.LOAD, 0xABAD1DEA);
+            InstructionType.LOAD, 0xABAD1DEC);
         InstructionDTO instructionDTO = instruction.executeInstruction();
         store.addInstructionDTO(instructionDTO);
         assertEquals("The type of the instruction saved should be LOAD",
@@ -52,7 +52,7 @@ public class StorageTest {
         store.clean();
 
         instruction = new Instruction(dataCache, addressLayout,
-            InstructionType.STORE, 0xABAD1DEA);
+            InstructionType.STORE, 0xABAD1DEC);
         instructionDTO = instruction.executeInstruction();
         store.addInstructionDTO(instructionDTO);
         assertEquals("The type of the instruction saved should be STORE",
@@ -88,7 +88,7 @@ public class StorageTest {
     }
 
     @Test
-    public void storeHitrate() {
+    public void storeHitrate() throws IllegalAddressException {
         CacheLayout cacheLayout = new CacheLayout(16, 16, 1);
         DataCache dataCache = cacheLayout.getDataCache();
         AddressLayout addressLayout = cacheLayout.getAddressLayout();
@@ -97,12 +97,12 @@ public class StorageTest {
         assertEquals("Stored hitrate should be same as in the datacache",
             dataCache.getHitrate(), store.getHitrate(), 0.01);
 
-        dataCache.loadData(addressLayout.parseAddress(0xABAD1DEA));
-        dataCache.loadData(addressLayout.parseAddress(0xABAD1DEA));
-        dataCache.storeData(addressLayout.parseAddress(0xABAD1DEA));
-        dataCache.storeData(addressLayout.parseAddress(0xABAD1DCA));
-        dataCache.storeData(addressLayout.parseAddress(0xAAAABBEA));
-        dataCache.loadData(addressLayout.parseAddress(0xABAD1DEA));
+        dataCache.loadData(addressLayout.parseAddress(0xABAD1DE0));
+        dataCache.loadData(addressLayout.parseAddress(0xABAD1DE0));
+        dataCache.storeData(addressLayout.parseAddress(0xABAD1DE0));
+        dataCache.storeData(addressLayout.parseAddress(0xABAD1DCC));
+        dataCache.storeData(addressLayout.parseAddress(0xAAAABBEC));
+        dataCache.loadData(addressLayout.parseAddress(0xABAD1DE0));
 
         store.storeHitrate(dataCache.getHitrate());
         assertEquals("Stored hitrate should be same as in the datacache",
