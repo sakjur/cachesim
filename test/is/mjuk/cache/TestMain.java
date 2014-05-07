@@ -7,6 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
+    AddressLayoutTest.class,
     CacheLayoutTest.class,
     DataCacheTest.class,
     StorageTest.class
