@@ -91,9 +91,9 @@ public class View
             if (input.toLowerCase().equals("exit") 
                 || input.toLowerCase().equals("x")) {
                 break;
-            } else if (input.matches("^[ls](oad|tore)?\\s\\d+$") ||
-                        input.matches("^[ls](oad|tore)?\\s\\b0[xX][0-9a-fA-F]+\\b")) {
-                //long address = Long.parseLong(input.split("\\s")[1]);
+            } else if (input.matches(
+                "^[ls](oad|tore)?\\s(0[x]?)?[0-9a-fA-F]+"
+            )) {
                 long address = Long.decode(input.split("\\s")[1]);
 
                 try {
