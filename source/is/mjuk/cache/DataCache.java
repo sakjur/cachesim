@@ -1,5 +1,6 @@
 package is.mjuk.cache;
 
+import java.util.ArrayList;
 import java.lang.StringBuilder;
 import java.lang.Math;
 
@@ -16,6 +17,8 @@ public class DataCache {
     private int loads = 0;
     private int stores = 0;
     private Block[][] blockset;
+    private ArrayList<DataCacheObserver> observers = 
+        new ArrayList<DataCacheObserver>();
 
     /**
     * Parses a cache layout and generates the block objects
@@ -51,6 +54,22 @@ public class DataCache {
             cacheDisplay.append("\n");
         }
         return cacheDisplay.toString();
+    }
+
+    /**
+    */
+    public void addObserver(DataCacheObserver observer) {
+        if (!this.observers.contains(observer)) {
+            this.observers.add(observer);
+        }
+    }
+
+    /**
+    */
+    public void removeObserver(DataCacheObserver observer) {
+        if (this.observers.contains(observer)) {
+            this.observers.remove(observer);
+        }
     }
 
     /**
@@ -158,7 +177,15 @@ public class DataCache {
         currentBlock = this.blockset[cacheSet][(int) address.getIndex()];
         currentBlock.setTag(address.getTag());
 
+        this.notifyObservers();
+
         this.misses += 1;
         return false;
+    }
+
+    private void notifyObservers() {
+        for (DataCacheObserver observer : this.observers) {
+            observer.recvDataCacheUpdate(this.displayCache());
+        }
     }
 }

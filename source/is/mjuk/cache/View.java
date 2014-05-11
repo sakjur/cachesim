@@ -8,7 +8,7 @@ import java.util.Date;
 * <p>
 * Handles interaction between user and the application
 */
-public class View
+public class View implements DataCacheObserver
 {
     public static Scanner scanner = new Scanner(System.in);
     Controller c;
@@ -69,6 +69,7 @@ public class View
                 legalData = false;
             }
         } while (!legalData);
+
         System.out.println("Displaying Cache Data");
         System.out.println(c.displayCache());
     }
@@ -83,47 +84,39 @@ public class View
           System.out.println(
             "To use instruction store, write 'store <memaddress>'"
         );
+        System.out.println(
+            "To observe changes in the cache, write 'observe'"
+        );
+        System.out.println(
+            "To stop observing changes in the cache, write 'deobserve'"
+        );
 
         while (true) {
             String input = scanner.nextLine();
-               input = input.trim();
+            input = input.trim();
+
+            String regex = "^[ls](oad|tore)?\\s(0[x]?)?[0-9a-fA-F]+";
 
             if (input.toLowerCase().equals("exit") 
                 || input.toLowerCase().equals("x")) {
                 break;
-            } else if (input.matches(
-                "^[ls](oad|tore)?\\s(0[x]?)?[0-9a-fA-F]+"
-            )) {
-                long address = Long.decode(input.split("\\s")[1]);
-
-                try {
-                    if (input.split("\\s")[0].matches("^l(oad)?$")) {
-                        System.out.println(
-                            c.executeInstruction("load", address).toString()
-                        );
-                    } else if (input.split("\\s")[0].matches("^s(tore)?$")) {
-                        System.out.println(
-                            c.executeInstruction("store", address).toString()
-                        );
-                    }
-                } catch(IllegalAddressException e) {
-                    System.out.println("Error parsing memory address: " + e);
-                    continue;
-                }
-
-                System.out.printf(
-                    "Hitrate is %.2f and missrate is %.2f.\n",
-                    c.getHitrate(), c.getMissrate()
-                );
+            } else if (input.matches(regex)) {
+                sendInstruction(input);
             } else if (input.matches("^$")) {
                 // Intentionally left empty
+            } else if (input.equals("observe")) {
+                System.out.println("Now observing the DataCache for changes");
+                c.addDataCacheObserver(this);
+            } else if (input.equals("deobserve")) {
+                System.out.println("No longer observing the DataCache");
+                c.removeDataCacheObserver(this);
             } else {
                 System.err.println("Instruction not found `" + input + "`");
             }
         }
     }
 
-    private void endSimulation(){
+    private void endSimulation() {
         System.out.println(c.displayCache());   // TODO: Remove
         SimulationDTO simDTO = c.getSimulationData();
         System.out.println("Simulation data:");
@@ -144,5 +137,36 @@ public class View
             + simDTO.getLayoutDTO().getIndexSize() + " bits");
         System.out.println("Address offset size: "
             + simDTO.getLayoutDTO().getOffsetSize() + " bits");
+    }
+
+    /**
+    * Recieves data from a DataCache observee.
+    */
+    public void recvDataCacheUpdate(String dataCacheContent) {
+        System.out.println(dataCacheContent);
+    }
+
+    private void sendInstruction(String input) {
+        long address = Long.decode(input.split("\\s")[1]);
+
+        try {
+            if (input.split("\\s")[0].matches("^l(oad)?$")) {
+                System.out.println(
+                    c.executeInstruction("load", address).toString()
+                );
+            } else if (input.split("\\s")[0].matches("^s(tore)?$")) {
+                System.out.println(
+                    c.executeInstruction("store", address).toString()
+                );
+            }
+        } catch(IllegalAddressException e) {
+            System.out.println("Error parsing memory address: " + e);
+            return;
+        }
+
+        System.out.printf(
+            "Hitrate is %.2f and missrate is %.2f.\n",
+            c.getHitrate(), c.getMissrate()
+        );
     }
 }

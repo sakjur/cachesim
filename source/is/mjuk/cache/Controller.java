@@ -142,4 +142,12 @@ public class Controller
         simDTO.setLoads(this.dataCache.getLoads());
         return simDTO;
     }
+
+    public void addDataCacheObserver(DataCacheObserver observer) {
+        this.dataCache.addObserver(observer);
+    }
+
+    public void removeDataCacheObserver(DataCacheObserver observer) {
+        this.dataCache.removeObserver(observer);
+    }
 }
