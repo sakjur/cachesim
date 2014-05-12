@@ -22,6 +22,7 @@ public class Instruction {
     * @param type Type of the instruction to be executed on the cache.
     * See {@link is.mjuk.cache.InstructionType} for available types.
     * @param address Address of the destinated memory block.
+    * @throws IllegalAddressException Thrown for unparseable addresses.
     */
     public Instruction(DataCache dataCache, AddressLayout addressLayout, 
         InstructionType type, long address)
