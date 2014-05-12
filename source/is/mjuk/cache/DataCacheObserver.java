@@ -7,5 +7,11 @@ package is.mjuk.cache;
 * @see is.mjuk.cache.DataCache
 */
 public interface DataCacheObserver {
+
+    /**
+    * The observed object will call this on the observing object whenever a
+    * observeable event occurs.
+    * @param dataCacheContent Updated content of the observed object
+    */
     public void recvDataCacheUpdate(String dataCacheContent);
 }

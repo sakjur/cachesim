@@ -140,7 +140,9 @@ public class View implements DataCacheObserver
     }
 
     /**
-    * Recieves data from a DataCache observee.
+    * recvDataCacheUpdate recieves data from the DataCache observer and
+    * prints it on the screen
+    * @param dataCacheContent New content of the DataCache.
     */
     public void recvDataCacheUpdate(String dataCacheContent) {
         System.out.println(dataCacheContent);

@@ -65,7 +65,6 @@ public class CacheLayout
     * already.
     *
     * @return {@link is.mjuk.cache.AddressLayout}
-    * @throws TODO
     */
     public AddressLayout getAddressLayout() {
         if (this.addressLayout == null) {

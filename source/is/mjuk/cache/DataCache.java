@@ -57,6 +57,12 @@ public class DataCache {
     }
 
     /**
+    * Adds an {@link is.mjuk.cache.DataCacheObserver} to the list of observers.
+    * <p>
+    * Silently ignores readding the observer if the observer is already in the
+    * list.
+    *
+    * @param observer Observer to be added to the list of observers.
     */
     public void addObserver(DataCacheObserver observer) {
         if (!this.observers.contains(observer)) {
@@ -65,6 +71,13 @@ public class DataCache {
     }
 
     /**
+    * Removes an {@link is.mjuk.cache.DataCacheObserver} from the list of 
+    * observers.
+    * <p>
+    * Silently ignores removing the observer if the observer doesn't exist in 
+    * the list of observers.
+    *
+    * @param observer Observer to be removed from the list of observers
     */
     public void removeObserver(DataCacheObserver observer) {
         if (this.observers.contains(observer)) {

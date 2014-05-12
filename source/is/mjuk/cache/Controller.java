@@ -37,6 +37,7 @@ public class Controller
     * stored in the {@link is.mjuk.cache.Storage}-singleton and returned
     * to the callee.
     *
+    * @throws is.mjuk.cache.IllegalAddressException For unparseable addresses.
     * @param type String containing data of instruction type
     * (either store or load)
     * @param address A long containing the address to perform the
@@ -143,10 +144,20 @@ public class Controller
         return simDTO;
     }
 
+    /**
+    * Adds an observer-object to the DataCache-object
+    * @param observer A {@link is.mjuk.cache.DataCacheObserver}-implementation
+    * @see is.mjuk.cache.DataCache#addObserver
+    */
     public void addDataCacheObserver(DataCacheObserver observer) {
         this.dataCache.addObserver(observer);
     }
 
+    /**
+    * Removes an observer-object from the DataCache-object
+    * @param observer A {@link is.mjuk.cache.DataCacheObserver}-implementation
+    * @see is.mjuk.cache.DataCache#removeObserver
+    */
     public void removeDataCacheObserver(DataCacheObserver observer) {
         this.dataCache.removeObserver(observer);
     }

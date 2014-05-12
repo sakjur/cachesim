@@ -27,6 +27,7 @@ public class AddressLayout {
     * @param address Address to be parsed into an AddressDTO 
     * @return An {@link is.mjuk.cache.AddressDTO} containing the 
     * tag, index and offset of the input address
+    * @throws IllegalAddressException For unparseable addresses
     */
     public AddressDTO parseAddress (long address) throws IllegalAddressException
     {
